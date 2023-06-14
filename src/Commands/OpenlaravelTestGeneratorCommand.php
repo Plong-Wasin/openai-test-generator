@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Wasinpwg\OpenlaravelTestGenerator\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class OpenlaravelTestGeneratorCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'openlaravel-test-generator';
 
     public $description = 'My command';
 
