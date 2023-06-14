@@ -23,7 +23,7 @@ class OpenlaravelTestGeneratorCommand extends Command
         foreach ($classes as $class) {
             try {
                 $this->info("Generating test for $class");
-                if (! class_exists($class)) {
+                if (!class_exists($class)) {
                     $this->error("Class $class not found");
 
                     continue;
@@ -43,16 +43,16 @@ class OpenlaravelTestGeneratorCommand extends Command
         $namespace = $this->getNamespaceFromFileContent($text);
         $className = $this->getClassNameFromFileContent($text);
         $testDirectory = base_path('tests');
-        $fileDirectory = $testDirectory.'/'.Str::of($namespace)->after('Tests')->replace('\\', '/');
-        if (! file_exists($fileDirectory)) {
+        $fileDirectory = $testDirectory . '/' . Str::of($namespace)->after('Tests')->replace('\\', '/');
+        if (!file_exists($fileDirectory)) {
             File::makeDirectory($fileDirectory);
         }
-        $filePath = $fileDirectory.'/'.$className.'.php';
-        if (! file_exists($filePath)) {
+        $filePath = $fileDirectory . '/' . $className . '.php';
+        if (!file_exists($filePath)) {
             File::put($filePath, $text);
         } else {
             $this->error("File $filePath already exists");
-            $filePath = $fileDirectory.'/'.$className.uniqid().'.php';
+            $filePath = $fileDirectory . '/' . $className . uniqid() . '.php';
             File::put($filePath, $text);
             $this->comment("Updated file $filePath");
         }
@@ -68,7 +68,7 @@ class OpenlaravelTestGeneratorCommand extends Command
                 ...config('openlaravel-test-generator.messages'),
                 [
                     'role' => 'user',
-                    'content' => 'This is my route.'.json_encode($this->getRouteByController($className)),
+                    'content' => 'This is my route.' . json_encode($this->getRouteByController($className)),
                 ],
                 [
                     'role' => 'assistant',
@@ -91,7 +91,7 @@ class OpenlaravelTestGeneratorCommand extends Command
     public function getRouteByController(string $controller)
     {
         $routeList = [];
-        foreach (Route::getRoutes() as $route) {
+        foreach ((array)Route::getRoutes() as $route) {
             if (Str::startsWith($route->getActionName(), $controller)) {
                 $routeList[] = [
                     'method' => implode('|', $route->methods()),
