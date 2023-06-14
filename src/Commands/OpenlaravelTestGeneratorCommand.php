@@ -4,10 +4,10 @@ namespace Wasinpwg\OpenlaravelTestGenerator\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use OpenAI\Laravel\Facades\OpenAI;
 use ReflectionClass;
 use SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
 
@@ -23,8 +23,9 @@ class OpenlaravelTestGeneratorCommand extends Command
         foreach ($classes as $class) {
             try {
                 $this->info("Generating test for $class");
-                if (!class_exists($class)) {
+                if (! class_exists($class)) {
                     $this->error("Class $class not found");
+
                     continue;
                 }
                 $test = $this->generateTest($class);
@@ -33,23 +34,25 @@ class OpenlaravelTestGeneratorCommand extends Command
                 $this->error("Error generating test for $class");
             }
         }
+
         return self::SUCCESS;
     }
+
     public function writeFile(string $text)
     {
         $namespace = $this->getNamespaceFromFileContent($text);
         $className = $this->getClassNameFromFileContent($text);
         $testDirectory = base_path('tests');
-        $fileDirectory = $testDirectory . '/' .  Str::of($namespace)->after('Tests')->replace('\\', '/');
-        if (!file_exists($fileDirectory)) {
+        $fileDirectory = $testDirectory.'/'.Str::of($namespace)->after('Tests')->replace('\\', '/');
+        if (! file_exists($fileDirectory)) {
             File::makeDirectory($fileDirectory);
         }
-        $filePath = $fileDirectory . '/' . $className . '.php';
-        if (!file_exists($filePath)) {
+        $filePath = $fileDirectory.'/'.$className.'.php';
+        if (! file_exists($filePath)) {
             File::put($filePath, $text);
         } else {
             $this->error("File $filePath already exists");
-            $filePath = $fileDirectory . '/' . $className . uniqid() . '.php';
+            $filePath = $fileDirectory.'/'.$className.uniqid().'.php';
             File::put($filePath, $text);
             $this->comment("Updated file $filePath");
         }
@@ -64,24 +67,25 @@ class OpenlaravelTestGeneratorCommand extends Command
             'messages' => [
                 ...config('openlaravel-test-generator.messages'),
                 [
-                    "role" => "user",
-                    "content" => "This is my route." . json_encode($this->getRouteByController($className)),
+                    'role' => 'user',
+                    'content' => 'This is my route.'.json_encode($this->getRouteByController($className)),
                 ],
                 [
-                    "role" => "assistant",
-                    "content" => 'understood'
+                    'role' => 'assistant',
+                    'content' => 'understood',
                 ],
                 [
-                    "role" => "user",
-                    "content" => File::get($filePath),
-                ]
-            ]
+                    'role' => 'user',
+                    'content' => File::get($filePath),
+                ],
+            ],
         ]);
-        $responseContent =  $result['choices'][0]['message']["content"];
+        $responseContent = $result['choices'][0]['message']['content'];
         if ($result['choices'][0]['finish_reason'] != 'stop') {
             throw new WriteOperationFailedException('Failed to generate test');
         }
-        return Str::of($responseContent)->ltrim('```php')->rtrim("```")->trim();
+
+        return Str::of($responseContent)->ltrim('```php')->rtrim('```')->trim();
     }
 
     public function getRouteByController(string $controller)
@@ -97,9 +101,11 @@ class OpenlaravelTestGeneratorCommand extends Command
                 ];
             }
         }
+
         return $routeList;
     }
-    function getNamespaceFromFileContent($fileContent)
+
+    public function getNamespaceFromFileContent($fileContent)
     {
         // Define the regular expression pattern to match the namespace declaration
         $pattern = '/namespace\s+([^\s;]+)/';
@@ -112,7 +118,8 @@ class OpenlaravelTestGeneratorCommand extends Command
 
         return $namespace;
     }
-    function getClassNameFromFileContent($fileContent)
+
+    public function getClassNameFromFileContent($fileContent)
     {
         // Define the regular expression pattern to match the class declaration
         $pattern = '/class\s+([^\s{]+)/';

@@ -4,20 +4,20 @@
 return [
     'messages' => [
         [
-            "role" => "system",
-            "content" => "I want you to act like a Laravel unit test professor. I will write you the code and you will respond unit test code. I want you to only reply code block, and nothing else. do not write explanations. Do not type commands unless I instruct you to do so. If my code don't have enough input. You must guess and reply code block to me."
+            'role' => 'system',
+            'content' => "I want you to act like a Laravel unit test professor. I will write you the code and you will respond unit test code. I want you to only reply code block, and nothing else. do not write explanations. Do not type commands unless I instruct you to do so. If my code don't have enough input. You must guess and reply code block to me.",
         ],
         [
-            "role" => "user",
-            "content" => 'This is route [{"method":"GET","as":"api.users.index","url":"users","controller":"App\Http\Controllers\UserController@index"},{"method":"POST","as":"api.users.store","url":"users","controller":"App\Http\Controllers\UserController@store"},{"method":"GET","as":"api.users.show","url":"users/{user}","controller":"App\Http\Controllers\UserController@show"},{"method":"PUT","as":"api.users.update","url":"users/{user}","controller":"App\Http\Controllers\UserController@update"},{"method":"DELETE","as":"api.users.destroy","url":"users/{user}","controller":"App\Http\Controllers\UserController@destroy"}]'
+            'role' => 'user',
+            'content' => 'This is route [{"method":"GET","as":"api.users.index","url":"users","controller":"App\Http\Controllers\UserController@index"},{"method":"POST","as":"api.users.store","url":"users","controller":"App\Http\Controllers\UserController@store"},{"method":"GET","as":"api.users.show","url":"users/{user}","controller":"App\Http\Controllers\UserController@show"},{"method":"PUT","as":"api.users.update","url":"users/{user}","controller":"App\Http\Controllers\UserController@update"},{"method":"DELETE","as":"api.users.destroy","url":"users/{user}","controller":"App\Http\Controllers\UserController@destroy"}]',
         ],
         [
-            "role" => "assistant",
-            "content" => 'understood'
+            'role' => 'assistant',
+            'content' => 'understood',
         ],
         [
-            "role" => "user",
-            "content" => '<?php
+            'role' => 'user',
+            'content' => '<?php
 
             namespace App\Http\Controllers;
 
@@ -75,8 +75,8 @@ return [
             }',
         ],
         [
-            "role" => "assistant",
-            "content" => '```php
+            'role' => 'assistant',
+            'content' => '```php
             <?php
 
             namespace Tests\Feature;
@@ -152,5 +152,5 @@ return [
             }
             ```',
         ],
-    ]
+    ],
 ];
