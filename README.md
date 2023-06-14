@@ -7,8 +7,6 @@
 
 This Laravel package allows you to generate automated tests for your application using OpenAI, a powerful language model. With this package, you can quickly create test cases for your Laravel codebase, saving you time and effort in writing tests manually.
 
-
-
 ## Installation
 
 You can install the package via composer:
@@ -23,20 +21,11 @@ You can publish the config file with:
 php artisan vendor:publish --tag="openai-test-generator-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-
 ## Usage
 
 ```bash
 php artisan openlaravel:generate-test --class="App\Http\Controller\UserController" --class="App\Http\Controller\PostController"
 ```
-
 
 ## Changelog
 
