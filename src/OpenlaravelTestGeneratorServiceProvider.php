@@ -16,10 +16,8 @@ class OpenlaravelTestGeneratorServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('openlaravel-test-generator')
+            ->name('openai-test-generator')
             ->hasConfigFile('openlaravel-test-generator')
-            ->hasViews()
-            ->hasMigration('create_openlaravel-test-generator_table')
             ->hasCommand(OpenlaravelTestGeneratorCommand::class);
     }
 }
