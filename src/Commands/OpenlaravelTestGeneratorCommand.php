@@ -32,6 +32,7 @@ class OpenlaravelTestGeneratorCommand extends Command
                 $this->writeFile($test);
             } catch (Exception $e) {
                 $this->error("Error generating test for $class");
+                $this->error($e->getMessage());
             }
         }
 
