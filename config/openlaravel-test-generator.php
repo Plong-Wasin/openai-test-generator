@@ -2,6 +2,7 @@
 
 // config for Wasinpwg/OpenlaravelTestGenerator
 return [
+    'model' => 'gpt-3.5-turbo',
     'messages' => [
         [
             'role' => 'system',
