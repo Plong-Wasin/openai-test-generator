@@ -20,138 +20,136 @@ return [
             'role' => 'user',
             'content' => '<?php
 
-            namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-            use App\Models\User;
-            use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-            class UserController extends Controller
-            {
-                public function index()
-                {
-                    $users = User::all();
-                    return response()->json($users);
-                }
+class UserController extends Controller
+{
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
 
-                public function store(Request $request)
-                {
-                    $this->validate($request, [
-                        \'name\' => \'required\',
-                        \'email\' => \'required|email|unique:users\',
-                        \'password\' => \'required|min:6\',
-                    ]);
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            \'name\' => \'required\',
+            \'email\' => \'required|email|unique:users\',
+            \'password\' => \'required|min:6\',
+        ]);
 
-                    $user = User::create($request->all());
+        $user = User::create($request->all());
 
-                    return response()->json($user, 201);
-                }
+        return response()->json($user, 201);
+    }
 
-                public function show($id)
-                {
-                    $user = User::findOrFail($id);
-                    return response()->json($user);
-                }
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user);
+    }
 
-                public function update(Request $request, $id)
-                {
-                    $this->validate($request, [
-                        \'name\' => \'required\',
-                        \'email\' => \'required|email|unique:users,email,\' . $id,
-                        \'password\' => \'required|min:6\',
-                    ]);
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            \'name\' => \'required\',
+            \'email\' => \'required|email|unique:users,email,\' . $id,
+            \'password\' => \'required|min:6\',
+        ]);
 
-                    $user = User::findOrFail($id);
-                    $user->update($request->all());
+        $user = User::findOrFail($id);
+        $user->update($request->all());
 
-                    return response()->json($user);
-                }
+        return response()->json($user);
+    }
 
-                public function destroy($id)
-                {
-                    $user = User::findOrFail($id);
-                    $user->delete();
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
 
-                    return response()->json(null, 204);
-                }
-            }',
+        return response()->json(null, 204);
+    }
+}',
         ],
         [
             'role' => 'assistant',
             'content' => '```php
             <?php
 
-            namespace Tests\Feature;
+namespace Tests\Feature;
 
-            use App\Models\User;
-            use Illuminate\Foundation\Testing\RefreshDatabase;
-            use Illuminate\Foundation\Testing\WithFaker;
-            use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
-            class UserControllerTest extends TestCase
-            {
-                use RefreshDatabase;
+class UserControllerTest extends TestCase
+{
+    public function testCanListUsers()
+    {
+        $user = User::factory()->create();
 
-                public function testCanListUsers()
-                {
-                    $user = User::factory()->create();
+        $response = $this->getJson(\'/users\');
 
-                    $response = $this->get(\'/users\');
+        $response->assertStatus(200)
+            ->assertJson([$user->toArray()]);
+    }
 
-                    $response->assertStatus(200)
-                        ->assertJson([$user->toArray()]);
-                }
+    public function testCanCreateUser()
+    {
+        $data = [
+            \'name\' => \'John Doe\',
+            \'email\' => \'john@example.com\',
+            \'password\' => \'secret123\',
+        ];
 
-                public function testCanCreateUser()
-                {
-                    $data = [
-                        \'name\' => \'John Doe\',
-                        \'email\' => \'john@example.com\',
-                        \'password\' => \'secret123\',
-                    ];
+        $response = $this->postJson(\'/users\', $data);
 
-                    $response = $this->post(\'/users\', $data);
+        $response->assertStatus(201)
+            ->assertJson($data);
+    }
 
-                    $response->assertStatus(201)
-                        ->assertJson($data);
-                }
+    public function testCanShowUser()
+    {
+        $user = User::factory()->create();
 
-                public function testCanShowUser()
-                {
-                    $user = User::factory()->create();
+        $response = $this->getJson(\'/users/\' . $user->id);
 
-                    $response = $this->get(\'/users/\' . $user->id);
+        $response->assertStatus(200)
+            ->assertJson($user->toArray());
+    }
 
-                    $response->assertStatus(200)
-                        ->assertJson($user->toArray());
-                }
+    public function testCanUpdateUser()
+    {
+        $user = User::factory()->create();
 
-                public function testCanUpdateUser()
-                {
-                    $user = User::factory()->create();
+        $data = [
+            \'name\' => \'Updated Name\',
+            \'email\' => \'updated@example.com\',
+            \'password\' => \'newpassword\',
+        ];
 
-                    $data = [
-                        \'name\' => \'Updated Name\',
-                        \'email\' => \'updated@example.com\',
-                        \'password\' => \'newpassword\',
-                    ];
+        $response = $this->putJson(\'/users/\' . $user->id, $data);
 
-                    $response = $this->put(\'/users/\' . $user->id, $data);
+        $response->assertStatus(200)
+            ->assertJson($data);
+    }
 
-                    $response->assertStatus(200)
-                        ->assertJson($data);
-                }
+    public function testCanDeleteUser()
+    {
+        $user = User::factory()->create();
 
-                public function testCanDeleteUser()
-                {
-                    $user = User::factory()->create();
+        $response = $this->deleteJson(\'/users/\' . $user->id);
 
-                    $response = $this->delete(\'/users/\' . $user->id);
-
-                    $response->assertStatus(204);
-                    $this->assertDatabaseMissing(\'users\', [\'id\' => $user->id]);
-                }
-            }
-            ```',
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing(\'users\', [\'id\' => $user->id]);
+    }
+}
+```',
         ],
     ],
 ];
