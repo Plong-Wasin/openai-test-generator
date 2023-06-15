@@ -12,13 +12,20 @@ This Laravel package allows you to generate automated tests for your application
 You can install the package via composer:
 
 ```bash
-composer require wasinpwg/openlaravel-test-generator
+composer require wasinpwg/openlaravel-test-generator --dev
 ```
 
-You can publish the config file with:
+Next publish the config file with:
 
 ```bash
+php artisan vendor:publish --provider="OpenAI\Laravel\ServiceProvider"
 php artisan vendor:publish --tag="openai-test-generator-config"
+```
+
+Set environment variable `OPENAI_API_KEY` in `.env` file.
+
+```bash
+OPENAI_API_KEY=sk-xxxxxx
 ```
 
 ## Usage
