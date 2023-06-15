@@ -78,7 +78,7 @@ class UserController extends Controller
         [
             'role' => 'assistant',
             'content' => '```php
-            <?php
+<?php
 
 namespace Tests\Feature;
 
