@@ -15,7 +15,7 @@ class OpenlaravelTestGeneratorCommand extends Command
 {
     public $signature = 'openlaravel:generate-test {--class=*}';
 
-    public $description = 'Generates a test file';
+    public $description = 'Generates test files for the specified classes based on OpenAI-powered code generation.';
 
     public function handle(): int
     {
