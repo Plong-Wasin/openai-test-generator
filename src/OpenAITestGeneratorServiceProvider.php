@@ -1,12 +1,12 @@
 <?php
 
-namespace Wasinpwg\OpenlaravelTestGenerator;
+namespace Wasinpwg\OpenAITestGenerator;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Wasinpwg\OpenlaravelTestGenerator\Commands\OpenlaravelTestGeneratorCommand;
+use Wasinpwg\OpenAITestGenerator\Commands\OpenAITestGeneratorCommand;
 
-class OpenlaravelTestGeneratorServiceProvider extends PackageServiceProvider
+class OpenAITestGeneratorServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -17,7 +17,7 @@ class OpenlaravelTestGeneratorServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('openai-test-generator')
-            ->hasConfigFile('openlaravel-test-generator')
-            ->hasCommand(OpenlaravelTestGeneratorCommand::class);
+            ->hasConfigFile('openai-test-generator')
+            ->hasCommand(OpenAITestGeneratorCommand::class);
     }
 }

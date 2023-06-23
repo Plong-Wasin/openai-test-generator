@@ -1,9 +1,9 @@
-# This is my package openlaravel-test-generator
+# This is my package openai-test-generator
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/wasinpwg/openlaravel-test-generator.svg?style=flat-square)](https://packagist.org/packages/wasinpwg/openlaravel-test-generator)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/plong-wasin/openlaravel-test-generator/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/plong-wasin/openlaravel-test-generator/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/plong-wasin/openlaravel-test-generator/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/plong-wasin/openlaravel-test-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/wasinpwg/openlaravel-test-generator.svg?style=flat-square)](https://packagist.org/packages/wasinpwg/openlaravel-test-generator)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/wasinpwg/openai-test-generator.svg?style=flat-square)](https://packagist.org/packages/wasinpwg/openai-test-generator)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/plong-wasin/openai-test-generator/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/plong-wasin/openai-test-generator/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/plong-wasin/openai-test-generator/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/plong-wasin/openai-test-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/wasinpwg/openai-test-generator.svg?style=flat-square)](https://packagist.org/packages/wasinpwg/openai-test-generator)
 
 This Laravel package allows you to generate automated tests for your application using OpenAI, a powerful language model. With this package, you can quickly create test cases for your Laravel codebase, saving you time and effort in writing tests manually.
 
@@ -12,7 +12,7 @@ This Laravel package allows you to generate automated tests for your application
 You can install the package via composer:
 
 ```bash
-composer require wasinpwg/openlaravel-test-generator --dev
+composer require wasinpwg/openai-test-generator --dev
 ```
 
 Next publish the config file with:
@@ -31,7 +31,7 @@ OPENAI_API_KEY=sk-xxxxxx
 ## Usage
 
 ```bash
-php artisan openlaravel:generate-test --class="App\Http\Controller\UserController" --class="App\Http\Controller\PostController"
+php artisan openai:generate-test --class="App\Http\Controller\UserController" --class="App\Http\Controller\PostController"
 ```
 
 ## Changelog

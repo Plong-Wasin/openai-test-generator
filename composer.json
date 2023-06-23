@@ -1,12 +1,12 @@
 {
-    "name": "wasinpwg/openlaravel-test-generator",
-    "description": "This is my package openlaravel-test-generator",
+    "name": "wasinpwg/openai-test-generator",
+    "description": "This is my package openai-test-generator",
     "keywords": [
         "wasinpwg",
         "laravel",
-        "openlaravel-test-generator"
+        "openai-test-generator"
     ],
-    "homepage": "https://github.com/wasinpwg/openlaravel-test-generator",
+    "homepage": "https://github.com/wasinpwg/openai-test-generator",
     "license": "MIT",
     "authors": [
         {
@@ -36,13 +36,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Wasinpwg\\OpenlaravelTestGenerator\\": "src/",
-            "Wasinpwg\\OpenlaravelTestGenerator\\Database\\Factories\\": "database/factories/"
+            "Wasinpwg\\OpenAITestGenerator\\": "src/",
+            "Wasinpwg\\OpenAITestGenerator\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Wasinpwg\\OpenlaravelTestGenerator\\Tests\\": "tests/"
+            "Wasinpwg\\OpenAITestGenerator\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Wasinpwg\\OpenlaravelTestGenerator\\OpenlaravelTestGeneratorServiceProvider"
+                "Wasinpwg\\OpenAITestGenerator\\OpenAITestGeneratorServiceProvider"
             ],
             "aliases": {
-                "OpenlaravelTestGenerator": "Wasinpwg\\OpenlaravelTestGenerator\\Facades\\OpenlaravelTestGenerator"
+                "OpenAITestGenerator": "Wasinpwg\\OpenAITestGenerator\\Facades\\OpenAITestGenerator"
             }
         }
     },

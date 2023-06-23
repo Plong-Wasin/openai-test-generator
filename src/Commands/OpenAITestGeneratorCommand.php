@@ -1,6 +1,6 @@
 <?php
 
-namespace Wasinpwg\OpenlaravelTestGenerator\Commands;
+namespace Wasinpwg\OpenAITestGenerator\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
@@ -11,9 +11,9 @@ use OpenAI\Laravel\Facades\OpenAI;
 use ReflectionClass;
 use SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
 
-class OpenlaravelTestGeneratorCommand extends Command
+class OpenAITestGeneratorCommand extends Command
 {
-    public $signature = 'openlaravel:generate-test {--class=*}';
+    public $signature = 'openai:generate-test {--class=*}';
 
     public $description = 'Generates test files for the specified classes based on OpenAI-powered code generation.';
 
@@ -23,7 +23,7 @@ class OpenlaravelTestGeneratorCommand extends Command
         foreach ($classes as $class) {
             try {
                 $this->info("Generating test for $class");
-                if (! class_exists($class)) {
+                if (!class_exists($class)) {
                     $this->error("Class $class not found");
 
                     continue;
@@ -44,17 +44,17 @@ class OpenlaravelTestGeneratorCommand extends Command
         $namespace = $this->getNamespaceFromFileContent($text);
         $className = $this->getClassNameFromFileContent($text);
         $testDirectory = base_path('tests');
-        $fileDirectory = $testDirectory.'/'.Str::of($namespace)->after('Tests')->replace('\\', '/');
-        if (! file_exists($fileDirectory)) {
+        $fileDirectory = $testDirectory . '/' . Str::of($namespace)->after('Tests')->replace('\\', '/');
+        if (!file_exists($fileDirectory)) {
             File::makeDirectory($fileDirectory, recursive: true);
         }
-        $filePath = $fileDirectory.'/'.$className.'.php';
-        if (! file_exists($filePath)) {
+        $filePath = $fileDirectory . '/' . $className . '.php';
+        if (!file_exists($filePath)) {
             File::put($filePath, $text);
             $this->comment("Created file $filePath");
         } else {
             $this->error("File $filePath already exists");
-            $newFilePath = $fileDirectory.'/'.$className.uniqid().'.php';
+            $newFilePath = $fileDirectory . '/' . $className . uniqid() . '.php';
             File::put($newFilePath, $text);
             $this->comment("Created file $newFilePath instead of $filePath");
         }
@@ -65,12 +65,12 @@ class OpenlaravelTestGeneratorCommand extends Command
         $reflection = new ReflectionClass($className);
         $filePath = $reflection->getFileName();
         $result = OpenAI::chat()->create([
-            'model' => config('openlaravel-test-generator.model'),
+            'model' => config('openai-test-generator.model'),
             'messages' => [
-                ...config('openlaravel-test-generator.messages'),
+                ...config('openai-test-generator.messages'),
                 [
                     'role' => 'user',
-                    'content' => 'This is my route.'.json_encode($this->getRouteByController($className)),
+                    'content' => 'This is my route.' . json_encode($this->getRouteByController($className)),
                 ],
                 [
                     'role' => 'assistant',

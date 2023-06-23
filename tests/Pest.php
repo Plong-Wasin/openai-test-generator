@@ -1,5 +1,5 @@
 <?php
 
-use Wasinpwg\OpenlaravelTestGenerator\Tests\TestCase;
+use Wasinpwg\OpenAITestGenerator\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

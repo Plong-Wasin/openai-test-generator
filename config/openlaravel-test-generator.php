@@ -1,6 +1,6 @@
 <?php
 
-// config for Wasinpwg/OpenlaravelTestGenerator
+// config for Wasinpwg/OpenAITestGenerator
 return [
     'model' => 'gpt-3.5-turbo',
     'messages' => [

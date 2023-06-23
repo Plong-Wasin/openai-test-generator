@@ -1,16 +1,16 @@
 <?php
 
-namespace Wasinpwg\OpenlaravelTestGenerator\Facades;
+namespace Wasinpwg\OpenAITestGenerator\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Wasinpwg\OpenlaravelTestGenerator\OpenlaravelTestGenerator
+ * @see \Wasinpwg\OpenAITestGenerator\OpenAITestGenerator
  */
-class OpenlaravelTestGenerator extends Facade
+class OpenAITestGenerator extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Wasinpwg\OpenlaravelTestGenerator\OpenlaravelTestGenerator::class;
+        return \Wasinpwg\OpenAITestGenerator\OpenAITestGenerator::class;
     }
 }

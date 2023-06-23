@@ -1,3 +1,3 @@
 # Changelog
 
-All notable changes to `openlaravel-test-generator` will be documented in this file.
+All notable changes to `openai-test-generator` will be documented in this file.
