@@ -23,7 +23,7 @@ class OpenAITestGeneratorCommand extends Command
         foreach ($classes as $class) {
             try {
                 $this->info("Generating test for $class");
-                if (!class_exists($class)) {
+                if (! class_exists($class)) {
                     $this->error("Class $class not found");
 
                     continue;
@@ -44,17 +44,17 @@ class OpenAITestGeneratorCommand extends Command
         $namespace = $this->getNamespaceFromFileContent($text);
         $className = $this->getClassNameFromFileContent($text);
         $testDirectory = base_path('tests');
-        $fileDirectory = $testDirectory . '/' . Str::of($namespace)->after('Tests')->replace('\\', '/');
-        if (!file_exists($fileDirectory)) {
+        $fileDirectory = $testDirectory.'/'.Str::of($namespace)->after('Tests')->replace('\\', '/');
+        if (! file_exists($fileDirectory)) {
             File::makeDirectory($fileDirectory, recursive: true);
         }
-        $filePath = $fileDirectory . '/' . $className . '.php';
-        if (!file_exists($filePath)) {
+        $filePath = $fileDirectory.'/'.$className.'.php';
+        if (! file_exists($filePath)) {
             File::put($filePath, $text);
             $this->comment("Created file $filePath");
         } else {
             $this->error("File $filePath already exists");
-            $newFilePath = $fileDirectory . '/' . $className . uniqid() . '.php';
+            $newFilePath = $fileDirectory.'/'.$className.uniqid().'.php';
             File::put($newFilePath, $text);
             $this->comment("Created file $newFilePath instead of $filePath");
         }
@@ -70,7 +70,7 @@ class OpenAITestGeneratorCommand extends Command
                 ...config('openai-test-generator.messages'),
                 [
                     'role' => 'user',
-                    'content' => 'This is my route.' . json_encode($this->getRouteByController($className)),
+                    'content' => 'This is my route.'.json_encode($this->getRouteByController($className)),
                 ],
                 [
                     'role' => 'assistant',
